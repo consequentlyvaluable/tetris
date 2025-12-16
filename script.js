@@ -400,25 +400,40 @@ touchButtons.forEach((button) => {
 });
 
 function resize() {
-  const maxWidth = wrapper.clientWidth;
-  const maxHeight = Math.min(window.innerHeight * 0.8, wrapper.clientHeight || Infinity);
-  const cellSize = Math.floor(Math.min(maxWidth / COLS, maxHeight / ROWS));
+  const rect = wrapper.getBoundingClientRect();
+  const paddingBottom = parseFloat(getComputedStyle(document.body).paddingBottom) || 0;
+  const availableHeight = Math.max(0, window.innerHeight - rect.top - paddingBottom);
+  const maxHeight = Math.min(rect.height || availableHeight, availableHeight || Infinity);
+  const cellSize = Math.floor(
+    Math.max(10, Math.min(rect.width / COLS, maxHeight / ROWS))
+  );
   const width = cellSize * COLS;
   const height = cellSize * ROWS;
   if (width > 0 && height > 0) {
+    wrapper.style.height = `${height}px`;
     playfield.width = width;
     playfield.height = height;
+    playfield.style.width = `${width}px`;
+    playfield.style.height = `${height}px`;
   }
 
-  const previewSize = Math.floor(Math.min(120, Math.max(72, width * 0.25)));
+  const previewSize = Math.floor(Math.min(144, Math.max(72, width * 0.3)));
   nextCanvas.width = previewSize;
   nextCanvas.height = previewSize;
+  nextCanvas.style.width = `${previewSize}px`;
+  nextCanvas.style.height = `${previewSize}px`;
 }
 
 window.addEventListener("resize", () => {
   resize();
   draw();
 });
+
+const wrapperObserver = new ResizeObserver(() => {
+  resize();
+  draw();
+});
+wrapperObserver.observe(wrapper);
 
 function init() {
   resize();

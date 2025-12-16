@@ -110,7 +110,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: clamp(240px, 60vh, 320px);
+  width: 100%;
+  max-height: 80vh;
+  min-height: clamp(220px, 55vh, 340px);
 }
 
 .playfield canvas {
