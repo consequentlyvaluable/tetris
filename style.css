@@ -1,0 +1,254 @@
+:root {
+  color-scheme: light dark;
+  --bg: #0d1117;
+  --panel: #161b22;
+  --accent: #6cf2c4;
+  --text: #e6edf3;
+  --muted: #9ea7b5;
+  --grid: rgba(255, 255, 255, 0.08);
+  --danger: #ff7b72;
+  font-family: "Space Grotesk", "Inter", system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at 10% 20%, rgba(108, 242, 196, 0.12), transparent 25%),
+    radial-gradient(circle at 80% 0%, rgba(108, 242, 196, 0.14), transparent 25%),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 1.5rem clamp(1rem, 4vw, 3rem) 3rem;
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.title-group h1 {
+  margin: 0.1rem 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.8rem;
+  color: var(--accent);
+  margin: 0;
+}
+
+.lede {
+  margin: 0;
+  color: var(--muted);
+  max-width: 45ch;
+}
+
+.ghost-button {
+  background: transparent;
+  border: 1px solid var(--grid);
+  color: var(--text);
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 150ms ease, transform 150ms ease;
+}
+
+.ghost-button:hover,
+.ghost-button:focus-visible {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.ghost-button:active {
+  transform: translateY(1px);
+}
+
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.game-shell {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), transparent), var(--panel);
+  border: 1px solid var(--grid);
+  border-radius: 20px;
+  padding: clamp(0.75rem, 1vw, 1.25rem);
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+.playfield {
+  position: relative;
+  aspect-ratio: 10 / 20;
+  background: #0b0e14;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--grid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+}
+
+.playfield canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--accent);
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 700;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+
+.overlay.visible {
+  opacity: 1;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--grid);
+  border-radius: 14px;
+  padding: 0.75rem 1rem 1rem;
+}
+
+.panel h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.stat-grid dt {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.stat-grid dd {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.keyboard-help {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.keyboard-help span {
+  display: inline-block;
+  min-width: 70px;
+  color: var(--muted);
+}
+
+.touch-controls {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.touch-controls button {
+  padding: 0.85rem;
+  border-radius: 12px;
+  border: 1px solid var(--grid);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 120ms ease, border-color 150ms ease, background 150ms ease;
+}
+
+.touch-controls button:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.touch-controls .accent {
+  border-color: var(--accent);
+  background: rgba(108, 242, 196, 0.08);
+}
+
+.instructions {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--grid);
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.instructions h2 {
+  margin: 0 0 0.5rem;
+  color: var(--text);
+}
+
+@media (max-width: 900px) {
+  .game-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .panel {
+    flex: 1 1 220px;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 1.25rem;
+  }
+
+  .site-header {
+    align-items: flex-start;
+  }
+
+  .touch-controls {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .touch-controls button:nth-child(4),
+  .touch-controls button:nth-child(5) {
+    grid-column: span 3;
+  }
+}
